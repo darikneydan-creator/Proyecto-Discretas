@@ -15,4 +15,9 @@ este dato es porque queremos que cada nodo tenga cualquier número de hijos,
 incluyendo la lista vacía, donde los hijos o elementos de la lista, también son
 árboles n-arios, y además, no queremos que tenga dos listas (izq y der) 
 como hijas, ya que esto no tendría ningún sentido, nos complicaría la lectura
-y además podemos abarcar todos los hijos en una sola lista.
+y además podemos abarcar todos los hijos en una sola lista. Una desventaja de
+este dato (probablemente, inevitable) es que nos forzó a elaborar funciones
+auxiliares dentro y fuera de las principales, por el mismo cambio en el tipo de
+dato que entraba y salía, una leía árboles, mientras que la otra leía arreglos
+de árboles.
+
