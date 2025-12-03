@@ -1,3 +1,5 @@
+# EXPLICACIÓN DE NUESTRA IMPLEMENTACIÓN
+
 Implementamos los arboles n-arios de la siguiente forma:
 
 ```data ArbolN a = Void | Node a [ArbolN a]```
@@ -96,7 +98,7 @@ _____________________________________________________________________
 
 _____________________________________________________________________
 
-# Miembros del equipo:
+# MIEMBROS DEL EQUIPO
 - Hernández Bautista Iago
 
     No. de cuenta: ```323256223```
@@ -110,5 +112,5 @@ _____________________________________________________________________
     No. de cuenta: ```323112343```
 
 _____________________________________________________________________
-# Info adicional:
+# INFO ADICIONAL
 Dentro de ```proyecto.hs``` hay varios arboles (t1 a t9) y proposiciones (p1 a p3) para que sea más fácil probar las funciones. Si descarga el repositorio, puede editar ```proyecto.hs``` para agregar, cambiar o eliminar las plantillas que tenemos.
