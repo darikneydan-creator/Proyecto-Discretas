@@ -220,9 +220,9 @@ esElemento x (y:xs) = if (x == y) then True else (esElemento x xs)
 
 
 
---------------------------------
---   ARBOLES Y PROPOSICIONES  --
---------------------------------
+---------------------------------
+--   ARBOLES Y PROPOSICIONES   --
+---------------------------------
 
 t1 :: ArbolN Int
 t1 = Node 1 [
