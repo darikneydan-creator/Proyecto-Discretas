@@ -21,7 +21,7 @@ a tener este arbol:
  / \
 E   D
 ```
-Por si solo puede no parecer útil, pero sí importa cuando nos encontramos con funciones que requieren orden (como preorden y postorden).
+Por sí solo puede no parecer útil, pero sí importa cuando nos encontramos con funciones que requieren orden (como preorden y postorden).
 
 Y la última razón por la que elegimos usar listas para manejar a los hijos es porque ya las habíamos visto en clase, entonces estamos más familiarizados con cómo funcionan y cómo usarlas.
 
