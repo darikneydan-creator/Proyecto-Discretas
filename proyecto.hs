@@ -1,6 +1,19 @@
 -- Arbol N-ario
 data ArbolN a = Void | Node a [ArbolN a]
-                deriving (Show, Eq)
+                deriving (Eq)
+
+-- Proposiciones y conectivos logicos para los arboles :p (con A de Arbol)
+data PropA = VarA String | ConsTrue | ConsFalse | NotA | AndA | OrA | ImplA |SyssA
+-- Para que se vea bien en la terminal (los arboles se siguen viendo feisimos xd, no se como hacer que se vean bien perdon :p)
+instance Show PropA where
+                    show (ConsTrue) = "Verdadero"
+                    show (ConsFalse) = "Falso"
+                    show (VarA p) = p
+                    show (NotA) = "¬"
+                    show (OrA) = "∨"
+                    show (AndA) = "∧"
+                    show (ImplA) = "→"
+                    show (SyssA) = "↔"
 
 -- Proposiciones logicas
 data Prop = Var String |
@@ -11,7 +24,6 @@ data Prop = Var String |
             Impl Prop Prop |
             Syss Prop Prop
             deriving (Eq)
-
 -- Para que se vea bien en la terminal
 instance Show Prop where
                     show (Cons True) = "Verdadero"
@@ -34,7 +46,7 @@ u = Var "u"
 
 -- Alias de estado y arbol de sintaxis
 type Estado = [String]
-type ArbolSintax = ArbolN String
+type ArbolSintax = ArbolN PropA
 
 
 
@@ -44,37 +56,37 @@ type ArbolSintax = ArbolN String
 
 -- Funcion que convierte una proposicion logica a su arbol de sintaxis
 propToArbol :: Prop -> ArbolSintax
-propToArbol (Var p) = Node p []
-propToArbol (Cons True) = Node "True" []
-propToArbol (Cons False) = Node "False" []
-propToArbol (Not p) = Node "¬" [propToArbol p]
-propToArbol (Or p q) =  Node "∨" [propToArbol p, propToArbol  q]
-propToArbol (And p q) = Node "∧" [propToArbol p, propToArbol q]
-propToArbol (Impl p q) = Node "→" [propToArbol p, propToArbol q]
-propToArbol (Syss p q) = Node "↔" [propToArbol p, propToArbol q]
+propToArbol (Var p) = Node (VarA p) []
+propToArbol (Cons True) = Node ConsTrue []
+propToArbol (Cons False) = Node ConsFalse []
+propToArbol (Not p) = Node NotA [propToArbol p]
+propToArbol (Or p q) =  Node OrA [propToArbol p, propToArbol  q]
+propToArbol (And p q) = Node AndA [propToArbol p, propToArbol q]
+propToArbol (Impl p q) = Node ImplA [propToArbol p, propToArbol q]
+propToArbol (Syss p q) = Node SyssA [propToArbol p, propToArbol q]
 
 -- Funcion que recibe un arbol de sintaxis y devuelve una proposicion
 arbolToProp :: ArbolSintax -> Prop
 arbolToProp Void = error "Arbol vacio"
-arbolToProp (Node "True" []) = Cons True
-arbolToProp (Node "False" []) = Cons False
-arbolToProp (Node p []) = Var p
-arbolToProp (Node "¬" [p]) = Not (arbolToProp p)
-arbolToProp (Node "∨" [p, q]) = Or (arbolToProp p) (arbolToProp q)
-arbolToProp (Node "∧" [p, q]) = And (arbolToProp p) (arbolToProp q)
-arbolToProp (Node "→" [p, q]) = Impl (arbolToProp p) (arbolToProp q)
-arbolToProp (Node "↔" [p, q]) = Syss (arbolToProp p) (arbolToProp q)
+arbolToProp (Node (ConsTrue) []) = Cons True
+arbolToProp (Node (ConsFalse) []) = Cons False
+arbolToProp (Node (VarA p) []) = Var p
+arbolToProp (Node NotA [p]) = Not (arbolToProp p)
+arbolToProp (Node OrA [p, q]) = Or (arbolToProp p) (arbolToProp q)
+arbolToProp (Node AndA [p, q]) = And (arbolToProp p) (arbolToProp q)
+arbolToProp (Node ImplA [p, q]) = Impl (arbolToProp p) (arbolToProp q)
+arbolToProp (Node SyssA [p, q]) = Syss (arbolToProp p) (arbolToProp q)
 
 -- Funcion que recibe un arbol de sintaxis, un estado de variables y devuelve la interpretacion del arbol
 interpretacionArbol :: ArbolSintax -> Estado -> Bool
-interpretacionArbol (Node "True" []) _ = True
-interpretacionArbol (Node "False" []) _ = False
-interpretacionArbol (Node p []) xs  =  if esElemento p xs then True else False
-interpretacionArbol (Node "¬" [p]) xs = negacion (interpretacionArbol p xs)
-interpretacionArbol (Node "∨" [p, q]) xs = disyuncion (interpretacionArbol p xs) (interpretacionArbol q xs)
-interpretacionArbol (Node "∧" [p, q]) xs = conjuncion (interpretacionArbol p xs) (interpretacionArbol q xs)
-interpretacionArbol (Node "→" [p, q]) xs = implicacion (interpretacionArbol p xs) (interpretacionArbol q xs)
-interpretacionArbol (Node "↔" [p, q]) xs = bicondicional (interpretacionArbol p xs) (interpretacionArbol q xs)
+interpretacionArbol (Node (ConsTrue) []) _ = True
+interpretacionArbol (Node (ConsFalse) []) _ = False
+interpretacionArbol (Node (VarA p) []) xs  =  if esElemento p xs then True else False
+interpretacionArbol (Node NotA [p]) xs = negacion (interpretacionArbol p xs)
+interpretacionArbol (Node OrA [p, q]) xs = disyuncion (interpretacionArbol p xs) (interpretacionArbol q xs)
+interpretacionArbol (Node AndA [p, q]) xs = conjuncion (interpretacionArbol p xs) (interpretacionArbol q xs)
+interpretacionArbol (Node ImplA [p, q]) xs = implicacion (interpretacionArbol p xs) (interpretacionArbol q xs)
+interpretacionArbol (Node SyssA [p, q]) xs = bicondicional (interpretacionArbol p xs) (interpretacionArbol q xs)
 
 
 
