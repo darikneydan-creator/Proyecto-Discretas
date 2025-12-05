@@ -29,16 +29,6 @@ Y la última razón por la que elegimos usar listas para manejar a los hijos es 
 
 Aunque usamos listas para hacer los árboles n-arios, también tienen desventajas. Por ejemplo, como los árboles pueden estar sueltos o en listas, nos forzó a crear funciones auxiliares dentro de cada función principal para tratar con árboles sueltos y para tratar con listas de árboles.
 
-Además, como un árbol puede ser vacío, existen dos formas de representar un nodo sin hijos. Una forma es con una lista vacía
-
-``` Node x [] ```
-
-y otra forma es con una lista de arboles vacíos
-
-``` Node x [Void] ```
-
-No afecta a la hora de contar elementos o trabajar con las listas, porque una lista de árboles vacía y un árbol vacío son tratados casi igual, pero no es muy elegante tener dos formas de representar la misma cosa, puede causar ambigüedad y confusión
-
 _____________________________________________________________________
 
 # LISTA DE FUNCIONES:
